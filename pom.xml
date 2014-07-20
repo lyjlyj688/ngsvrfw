@@ -10,28 +10,33 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>gamesvr</module>
-        <module>datasvr</module>
-        <module>common</module>
-        <module>demo</module>
+        <module>ngsvrfw-gamesvr</module>
+        <module>ngsvrfw-datasvr</module>
+        <module>ngsvrfw-common</module>
+        <module>ngsvrfw-demo</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>gamesvr</artifactId>
+                <artifactId>ngsvrfw-gamesvr</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>datasvr</artifactId>
+                <artifactId>ngsvrfw-datasvr</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>ngsvrfw-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty</artifactId>
-                <version>3.9.2.Final</version>
+                <version>4.0.18.Final</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
