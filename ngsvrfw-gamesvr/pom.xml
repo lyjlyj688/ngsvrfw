@@ -11,5 +11,10 @@
 
     <artifactId>ngsvrfw-gamesvr</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>person.lyjyy</groupId>
+            <artifactId>ngsvrfw-common</artifactId>
+        </dependency>
+    </dependencies>
 </project>
