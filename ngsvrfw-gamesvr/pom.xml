@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>person.lyjyy</groupId>
-            <artifactId>ngsvrfw-common</artifactId>
+            <artifactId>ngsvrfw-core</artifactId>
         </dependency>
     </dependencies>
 </project>

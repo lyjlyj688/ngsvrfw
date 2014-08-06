@@ -1,6 +1,6 @@
 package person.lyjyy.gamesvr.boot;
 
-import person.lyjyy.common.boot.IBoot;
+import person.lyjyy.core.boot.IBoot;
 
 /**
  * Created by yujie.li on 14-7-21.
