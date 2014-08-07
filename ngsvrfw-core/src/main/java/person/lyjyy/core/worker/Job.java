@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class Job {
     public final static Timer timer = new HashedWheelTimer();
-    public static <T> Timeout addJob(final T runnable,final WorkThread workThread,long timeDelay,TimeUnit unit) {
+    public static <T> Timeout addJob(final T runnable,final ThreadModel workThread,long timeDelay,TimeUnit unit) {
         return timer.newTimeout(new TimerTask() {
             @Override
             public void run(Timeout timeout) throws Exception {

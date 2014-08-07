@@ -9,5 +9,7 @@ public interface InProtocol<T> extends IProtocol{
 
     public int getThreadIndex(int para);
 
-    public ProtocolHandler getHandler();
+    public InProtocol<T> newInstance();
+
+    public String getHandler();
 }

@@ -2,17 +2,15 @@ package person.lyjyy.core.worker;
 
 import person.lyjyy.core.protocol.InProtocol;
 
-import java.util.concurrent.LinkedBlockingQueue;
-
 /**
  * Created by yujie.li on 14-8-4.
  */
-public class GsMsgDispatcher<T extends InProtocol> extends WorkThread<T>{
+public class GsMsgDispatcher<T extends InProtocol> extends ThreadModel<T> {
 
-    protected WorkThread<T>[] threadList;
+    protected AbstractProtocolWorkThread<T>[] threadList;
 
-    public GsMsgDispatcher(WorkThread<T>[] list) {
-        threadList = new WorkThread[list.length];
+    public GsMsgDispatcher(AbstractProtocolWorkThread<T>[] list) {
+        threadList = new AbstractProtocolWorkThread[list.length];
         for(int i = 0; i < threadList.length; i++) {
             threadList[i] = list[i];
         }

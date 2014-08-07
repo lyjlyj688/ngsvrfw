@@ -23,7 +23,7 @@ public class BaseCache<T extends InstanceObj> {
         if(obj == null) {
             return null;
         }
-        return obj.newInstance();
+        return obj.clone();
     }
 
     public void update(long guid, T instanceObj) {
@@ -53,6 +53,19 @@ public class BaseCache<T extends InstanceObj> {
 
     public Map<String, T> getMap(long guid) {
         return map.get(guid);
+    }
+
+    public void updateObj(T obj) {
+        switch (obj.getOptType()) {
+            case InstanceObj.OPT_ADD:
+                add(obj.getGuid(),obj);
+            case InstanceObj.OPT_DEL:
+                remove(obj.getGuid(),obj);
+            case InstanceObj.OPT_UPDATE:
+                update(obj.getGuid(),obj);
+            default:;
+        }
+        obj.setOptType(InstanceObj.OPT_NA);
     }
 
 }

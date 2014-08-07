@@ -8,23 +8,28 @@ import person.lyjyy.core.domain.InstanceObj;
  */
 public class CoreDao4Gs {
 
-    public void update(InstanceObj obj) {
+    public static ThreadLocal<ThreadData> tl = new ThreadLocal<ThreadData>();
 
+    public static BaseCache cache = new BaseCache();
+
+    public void update(String sql,InstanceObj obj) {
+        tl.get().update(sql,obj);
     }
 
-    public void delete(InstanceObj obj) {
-
+    public void delete(String sql,InstanceObj obj) {
+        tl.get().delete(sql,obj);
     }
 
-    public void insert(InstanceObj obj) {
-
+    public void insert(String sql,InstanceObj obj) {
+        tl.get().insert(sql,obj);
     }
 
-    public InstanceObj get(long guid,String key) {
-        return null;
-    }
-
-    static class viewCache {
-
+    public InstanceObj get(long guid,String key,int storgeType) {
+        try {
+            return tl.get().get(guid,key);
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            throw new RuntimeException("获取数据错误",e);
+        }
     }
 }

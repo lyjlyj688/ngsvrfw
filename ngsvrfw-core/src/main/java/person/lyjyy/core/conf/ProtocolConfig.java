@@ -1,18 +1,12 @@
 package person.lyjyy.core.conf;
 
+import person.lyjyy.core.protocol.InProtocol;
+
 /**
  * Created by yujie.li on 14-7-29.
  */
-public class ProtocolConfig {
+public interface ProtocolConfig {
 
-    /**
-     * id name 内部属性
-     */
-    public void init() {
+    public InProtocol get(int id);
 
-    }
-
-    public Object get() {
-        return null;
-    }
 }

@@ -11,7 +11,13 @@ import java.util.List;
 /**
  * Created by yujie.li on 14-8-4.
  */
-public class SendCommandThread<T extends DsCommandBatch> extends WorkThread<T> {
+public class SendCommandThread<T extends DsCommandBatch> extends ThreadModel<T> {
+
+    public static SendCommandThread sct = new SendCommandThread();
+
+    public void init(Client client) {
+        this.client = client;
+    }
 
     protected Client client;
 

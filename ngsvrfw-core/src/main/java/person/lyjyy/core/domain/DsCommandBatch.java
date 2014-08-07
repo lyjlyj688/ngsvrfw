@@ -21,6 +21,10 @@ public abstract class DsCommandBatch<T> extends RemoteObj<T>{
         commandList.add(command);
     }
 
+    public  int getStoreType() {
+        return InstanceObj.TYPE_NOL;
+    }
+
     @Override
     public RemoteObj newInstance() {
         throw new NotImplementedException();

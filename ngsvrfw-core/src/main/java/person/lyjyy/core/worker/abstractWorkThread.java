@@ -3,7 +3,7 @@ package person.lyjyy.core.worker;
 /**
  * Created by yujie.li on 14-8-6.
  */
-public abstract class abstractWorkThread<T> extends WorkThread<T>{
+public abstract class AbstractWorkThread<T> extends ThreadModel<T> {
 
 
     protected abstract void before(T t);

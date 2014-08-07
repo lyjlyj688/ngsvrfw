@@ -30,7 +30,7 @@ public abstract class RemoteObj<T> extends InstanceObj implements InProtocol<T>,
     }
 
     @Override
-    public ProtocolHandler getHandler() {
+    public String getHandler() {
         throw new NotImplementedException();
     }
 

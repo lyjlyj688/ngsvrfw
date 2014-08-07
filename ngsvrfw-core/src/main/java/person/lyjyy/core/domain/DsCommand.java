@@ -31,6 +31,9 @@ public abstract class DsCommand<T> extends RemoteObj<T>{
         this.sql = sql;
     }
 
+    public  int getStoreType() {
+        return InstanceObj.TYPE_NOL;
+    }
 
     @Override
     public RemoteObj newInstance() {
