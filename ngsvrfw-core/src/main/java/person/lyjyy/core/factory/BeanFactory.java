@@ -1,5 +1,9 @@
 package person.lyjyy.core.factory;
 
+import net.sf.cglib.proxy.CallbackFilter;
+import net.sf.cglib.proxy.Enhancer;
+import net.sf.cglib.proxy.MethodInterceptor;
+import net.sf.cglib.proxy.MethodProxy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import person.lyjyy.core.exception.FrameException;
@@ -7,6 +11,7 @@ import person.lyjyy.core.exception.FrameException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.*;
 
 /**
@@ -18,6 +23,9 @@ public class BeanFactory {
 
     private Map<String,Object> beanMap = new HashMap<String, Object>();
     private Map<String,Object> classMap = new HashMap<String, Object>();
+    protected Around around;
+
+
 
     public BeanFactory(String dir) throws Exception{
         File[] list = new File(dir).listFiles();
@@ -64,7 +72,10 @@ public class BeanFactory {
         return beanMap.get(key);
     }
 
-    public void around(Around around,Object src) {
+    public void around(Class clazz) {
+
         return;
     }
+
+
 }

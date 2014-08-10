@@ -5,6 +5,6 @@ import person.lyjyy.core.protocol.ServerProtocol;
 /**
  * Created by yujie.li on 14-7-22.
  */
-public interface LoadDataRequest extends ServerProtocol {
+public abstract class LoadDataRequest extends ServerProtocol {
 
 }

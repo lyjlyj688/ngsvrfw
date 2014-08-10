@@ -13,8 +13,7 @@
     <dependencies>
         <dependency>
             <groupId>person.lyjyy</groupId>
-            <artifactId>ngsvrfw-common</artifactId>
-            <version>1.0.0</version>
+            <artifactId>ngsvrfw-core</artifactId>
         </dependency>
     </dependencies>
 </project>

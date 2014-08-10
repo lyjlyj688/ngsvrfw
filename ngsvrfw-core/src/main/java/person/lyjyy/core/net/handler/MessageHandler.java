@@ -2,6 +2,7 @@ package person.lyjyy.core.net.handler;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelDuplexHandler;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.util.ReferenceCountUtil;
 import org.slf4j.Logger;
@@ -13,12 +14,17 @@ import person.lyjyy.core.worker.ThreadModel;
 /**
  * Created by yujie.li on 14-7-20.
  */
+@ChannelHandler.Sharable
 public class MessageHandler extends ChannelDuplexHandler{
 
     final static Logger log = LoggerFactory.getLogger(MessageHandler.class);
 
     protected ProtocolConfig pconfig;
     protected ThreadModel wt;
+
+    public void setProtocolConfig(ProtocolConfig pconfig) {
+        this.pconfig = pconfig;
+    }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {

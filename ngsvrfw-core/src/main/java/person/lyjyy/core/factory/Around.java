@@ -5,6 +5,6 @@ package person.lyjyy.core.factory;
  */
 public interface Around {
 
-    public <T> void  around(T obj);
+    public Object  around(Class clazz);
 
 }

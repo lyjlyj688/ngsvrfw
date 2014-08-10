@@ -7,7 +7,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 public abstract class ThreadModel<T> implements Runnable{
 
-    protected LinkedBlockingQueue<T> queue;
+    protected LinkedBlockingQueue<T> queue = new LinkedBlockingQueue<T>();
 
 
     public void add(T t) {

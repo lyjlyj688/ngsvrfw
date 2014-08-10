@@ -44,7 +44,7 @@ public class Client {
                     @Override
                     protected void initChannel(Channel ch) throws Exception {
                         ch.pipeline().addLast("encoder",new MessageEncode())
-                                .addLast("decoder",new MessageDecode())
+                                .addLast("decoder",new MessageDecode(0xfffffff))
                                 .addLast("idleEvent",new IdleStateHandler(10,2,10))
                                 .addLast("idleHander",new ClientStateHandler(bootstrap,client))
                                 .addLast("handler", new MessageHandler());

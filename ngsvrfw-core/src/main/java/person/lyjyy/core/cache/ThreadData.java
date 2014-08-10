@@ -41,7 +41,7 @@ public class ThreadData {
                     comm.setOptType(obj.opt);
                     batch.addCommand(comm);
                 }
-                CoreDao4Gs.cache.updateObj(obj.obj);
+                GsCache.cache.updateObj(obj.obj);
                 if(obj.next != null && obj.next.sql != null && obj.next.obj.getStoreType() == InstanceObj.TYPE_NOL) {
                     comm = new DefaultDsCommand();
                     comm.setObj((RemoteObj) obj.next.obj);
@@ -49,10 +49,11 @@ public class ThreadData {
                     comm.setOptType(obj.next.opt);
                     batch.addCommand(comm);
                 }
-                CoreDao4Gs.cache.updateObj(obj.next.obj);
+                GsCache.cache.updateObj(obj.next.obj);
             }
             SendCommandThread.sct.add(batch);
         }
+        data.clear();
     }
 
     public void update(String sql,InstanceObj obj) {
@@ -74,13 +75,16 @@ public class ThreadData {
                         newobj.sql = sql;
                         newobj.opt = InstanceObj.OPT_UPDATE;
                         old.next = newobj;
+                        break;
                     case InstanceObj.OPT_UPDATE:
                         old.obj = obj;
-                    case InstanceObj.OPT_DEL:;
+                        break;
+                    case InstanceObj.OPT_DEL:break;
                     default:
                         old.obj = obj;
                         old.sql = sql;
                         old.opt = InstanceObj.OPT_UPDATE;
+                        break;
                 }
             }
         }
@@ -94,7 +98,7 @@ public class ThreadData {
                 return null;
             }
             if(obj == null) {
-                InstanceObj obj0 = CoreDao4Gs.cache.get(guid,key);
+                InstanceObj obj0 = GsCache.cache.get(guid,key);
                 if(obj0 != null) {
                     obj = new UpdateObj();
                     obj.obj = obj0;
@@ -105,7 +109,7 @@ public class ThreadData {
             }
             return obj.obj;
         }else {
-            InstanceObj obj0 = CoreDao4Gs.cache.get(guid,key);
+            InstanceObj obj0 = GsCache.cache.get(guid,key);
             if(obj0 != null) {
                 UpdateObj obj = new UpdateObj();
                 obj.obj = obj0;
@@ -132,12 +136,12 @@ public class ThreadData {
             }else {
                 switch (old.opt) {
                     case InstanceObj.OPT_ADD:
-                        map.remove(obj.getObjKey());
+                        map.remove(obj.getObjKey());break;
                     case InstanceObj.OPT_UPDATE:
                         old.obj = obj;
                         old.sql = sql;
-                        old.opt = InstanceObj.OPT_DEL;
-                    case InstanceObj.OPT_DEL:;
+                        old.opt = InstanceObj.OPT_DEL;break;
+                    case InstanceObj.OPT_DEL:break;
                     default:;
                 }
             }
@@ -157,15 +161,16 @@ public class ThreadData {
             }else {
                 switch (old.obj.getOptType()) {
                     case InstanceObj.OPT_ADD:
-                        old.obj = obj;
+                        old.obj = obj;break;
                     case InstanceObj.OPT_UPDATE:
                         throw new RuntimeException("存在重复的key:" + obj.getObjKey());
-                    case InstanceObj.OPT_DEL:;
+                    case InstanceObj.OPT_DEL:
                         UpdateObj newobj = new UpdateObj();
                         newobj.obj = obj;
                         newobj.sql = sql;
                         old.next = newobj;
-                    default:;
+                        break;
+                    default:break;
                 }
             }
         }

@@ -5,5 +5,5 @@ import person.lyjyy.core.protocol.ServerProtocol;
 /**
  * Created by yujie.li on 14-7-22.
  */
-public interface LoadDataResponse extends ServerProtocol {
+public abstract class LoadDataResponse extends ServerProtocol {
 }

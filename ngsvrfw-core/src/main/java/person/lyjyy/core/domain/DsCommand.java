@@ -1,6 +1,4 @@
 package person.lyjyy.core.domain;
-
-import org.apache.ibatis.session.SqlSession;
 import person.lyjyy.core.protocol.ProtocolHandler;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -53,5 +51,9 @@ public abstract class DsCommand<T> extends RemoteObj<T>{
     @Override
     public int getRemoteObjType() {
         throw new NotImplementedException();
+    }
+
+    public String toString() {
+        return sql;
     }
 }

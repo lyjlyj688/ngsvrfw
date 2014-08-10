@@ -19,6 +19,17 @@ import java.util.concurrent.TimeUnit;
 public class Server {
     int port;
     protected ServerBootstrap bootstrap;
+    protected MessageHandler messageHandler;
+
+    public Server(int port) {
+        this.port = port;
+        this.messageHandler = new MessageHandler();
+    }
+
+    public MessageHandler getMessageHandler() {
+        return messageHandler;
+    }
+
     //启动网络服务
     public void start() {
         bootstrap = new ServerBootstrap();
@@ -32,10 +43,10 @@ public class Server {
                     @Override
                     protected void initChannel(Channel ch) throws Exception {
                         ch.pipeline().addLast("encoder",new MessageEncode())
-                                .addLast("decoder",new MessageDecode())
+                                .addLast("decoder",new MessageDecode(0xfffff))
                                 .addLast("idleEvent",new IdleStateHandler(10,2,10))
                                 .addLast("idleHander",new ServerStateHandler())
-                                .addLast("handler", new MessageHandler());
+                                .addLast("handler", messageHandler);
                     }
                 });
     }
