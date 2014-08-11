@@ -1,7 +1,6 @@
 package person.lyjyy.core.factory;
 
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
+import net.sf.cglib.proxy.*;
 import person.lyjyy.core.cache.CoreDao4Gs;
 import person.lyjyy.core.cache.GsCache;
 import person.lyjyy.core.cache.ThreadData;
@@ -13,9 +12,31 @@ import java.lang.reflect.Method;
  */
 public class GsAround implements Around{
 
+    private Enhancer e;
+
+    public GsAround() {
+        e = new Enhancer();
+        e.setCallbackFilter(new CallbackFilter() {
+            @Override
+            public int accept(Method method) {
+                if(method.getDeclaringClass().getName().indexOf("Service") >= 0 && method.getName().endsWith("withTrans")) {
+                    return 0;
+                }
+                return 1;
+            }
+        });
+        Callback[] ba = new Callback[]{new TransInterceptor(),new DefaultCallBack()};
+        e.setCallbacks(ba);
+    }
+
     @Override
     public Object around(Class clazz) {
-        return null;
+        e.setSuperclass(clazz);
+        return e.create();
+    }
+
+    class DefaultCallBack implements Callback {
+
     }
 
     class TransInterceptor implements MethodInterceptor {

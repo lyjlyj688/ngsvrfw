@@ -22,20 +22,19 @@ public class BeanFactory {
     private final static Logger log = LoggerFactory.getLogger(BeanFactory.class);
 
     private Map<String,Object> beanMap = new HashMap<String, Object>();
-    private Map<String,Object> classMap = new HashMap<String, Object>();
     protected Around around;
 
 
 
-    public BeanFactory(String dir) throws Exception{
+    public BeanFactory(String dir,Around around) throws Exception{
+        this.around = around;
         File[] list = new File(dir).listFiles();
         for(File file : list) {
             Properties p = new Properties();
             p.load(new FileInputStream(file));
             for(Object key : p.keySet()) {
-                Object obj = Class.forName(p.getProperty((String) key)).newInstance();
+                Object obj = around.around(Class.forName(p.getProperty((String) key)));
                 beanMap.put((String) key,obj);
-                classMap.put(p.getProperty((String) key),obj);
             }
             for(Object bean : beanMap.values()) {
                 fixProperty(bean);
@@ -47,7 +46,9 @@ public class BeanFactory {
     private void fixProperty(Object bean) throws IllegalAccessException {
         Field[] fieldList = bean.getClass().getDeclaredFields();
         for(Field f : fieldList) {
-            f.set(bean,beanMap.get(f.getType().getName()));
+            if(beanMap.containsKey(f.getType().getName())) {
+                f.set(bean,beanMap.get(f.getType().getName()));
+            }
         }
     }
 
@@ -71,11 +72,4 @@ public class BeanFactory {
     public Object getBean(String key) {
         return beanMap.get(key);
     }
-
-    public void around(Class clazz) {
-
-        return;
-    }
-
-
 }

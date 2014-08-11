@@ -4,12 +4,15 @@ package person.lyjyy.core.domain;
  * Created by yujie.li on 14-8-3.
  */
 public abstract class InstanceObj extends BaseObj implements Cloneable{
-    public static final byte TYPE_LOCAL = 0;
-    public static final byte TYPE_NOL = 1;
+    public static final byte STORE_TYPE_LOCAL = 0;
+    public static final byte STORE_TYPE_NOL = 1;
     public static final byte OPT_NA = 0;
     public static final byte OPT_ADD = 1;
     public static final byte OPT_UPDATE = 2;
     public static final byte OPT_DEL = 3;
+
+    public static final byte OBJ_TYPE_NONE = 0;
+    public static final byte OBJ_TYPE_CROSS = 1;
 
     protected long guid;
 
@@ -23,9 +26,6 @@ public abstract class InstanceObj extends BaseObj implements Cloneable{
     public void setOptType(byte optType) {
         this.optType = optType;
     }
-
-
-
 
     public abstract int getObjType();
 

@@ -13,8 +13,6 @@ import java.util.List;
  */
 public class SendCommandThread<T extends DsCommandBatch> extends ThreadModel<T> {
 
-    public static SendCommandThread sct = new SendCommandThread();
-
     public void init(Client client) {
         this.client = client;
     }
@@ -40,6 +38,7 @@ public class SendCommandThread<T extends DsCommandBatch> extends ThreadModel<T> 
                     client.flush();
                     list.clear();
                 }
+                Thread.sleep(500);
             }catch (Exception e){
                 log.error("exec send command error",e);
             }finally {
@@ -47,7 +46,6 @@ public class SendCommandThread<T extends DsCommandBatch> extends ThreadModel<T> 
                     log.error("can not connect ds");
                 }
             }
-
         }
     }
 }

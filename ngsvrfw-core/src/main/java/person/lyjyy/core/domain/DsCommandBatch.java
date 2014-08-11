@@ -2,7 +2,6 @@ package person.lyjyy.core.domain;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public abstract class DsCommandBatch<T> extends RemoteObj<T>{
     }
 
     public  int getStoreType() {
-        return InstanceObj.TYPE_NOL;
+        return InstanceObj.STORE_TYPE_NOL;
     }
 
     @Override

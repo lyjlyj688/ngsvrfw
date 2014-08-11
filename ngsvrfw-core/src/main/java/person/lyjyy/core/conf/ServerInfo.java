@@ -2,6 +2,7 @@ package person.lyjyy.core.conf;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -9,26 +10,15 @@ import java.util.Properties;
  * Created by yujie.li on 14-7-21.
  */
 public class ServerInfo {
-    public static int svrId;
-    private static Properties svrProperty;
-    private static Properties dbProperty;
+    public static int gsPort;
+    public static String dsIp;
+    public static int dsPort;
 
-    static {
-        try {
-            svrProperty = new Properties();
-            svrProperty.load(new FileInputStream(new File("./conf/serverinfo.cf")));
-            svrId = Integer.valueOf(svrProperty.getProperty("svrId"));
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(-1);
-        }
-    }
-
-    public static void initSvrProperty() {
-
-    }
-
-    public static void initDbProperty() {
-
+    public static void init(String file) throws IOException {
+        Properties p = new Properties();
+        p.load(new FileInputStream(new File(file)));
+        gsPort = Integer.valueOf(p.getProperty("gsPort"));
+        dsIp = p.getProperty("dsIp");
+        dsPort = Integer.valueOf(p.getProperty("dsPort"));
     }
 }

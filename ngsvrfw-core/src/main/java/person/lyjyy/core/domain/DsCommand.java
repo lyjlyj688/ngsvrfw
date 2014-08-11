@@ -1,8 +1,5 @@
 package person.lyjyy.core.domain;
-import person.lyjyy.core.protocol.ProtocolHandler;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
-import java.nio.ByteBuffer;
 
 /**
  * Created by yujie.li on 14-8-4.
@@ -30,7 +27,7 @@ public abstract class DsCommand<T> extends RemoteObj<T>{
     }
 
     public  int getStoreType() {
-        return InstanceObj.TYPE_NOL;
+        return InstanceObj.STORE_TYPE_NOL;
     }
 
     @Override

@@ -9,6 +9,8 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.handler.timeout.IdleStateHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import person.lyjyy.core.net.handler.ClientStateHandler;
 import person.lyjyy.core.net.handler.MessageHandler;
 import person.lyjyy.core.net.handler.codec.MessageDecode;
@@ -24,13 +26,20 @@ public class Client {
     private String host;
     private int port;
     private Bootstrap bootstrap;
+    private MessageHandler messageHandler;
     private volatile boolean isConnect = false;
     private Channel channel;
+    private final static Logger log = LoggerFactory.getLogger(Client.class);
 
     public Client(String host,int port) {
         this.host = host;
         this.port = port;
+        this.messageHandler = new MessageHandler();
         init();
+    }
+
+    public MessageHandler getHandler() {
+        return this.messageHandler;
     }
 
     public void init() {
@@ -47,7 +56,7 @@ public class Client {
                                 .addLast("decoder",new MessageDecode(0xfffffff))
                                 .addLast("idleEvent",new IdleStateHandler(10,2,10))
                                 .addLast("idleHander",new ClientStateHandler(bootstrap,client))
-                                .addLast("handler", new MessageHandler());
+                                .addLast("handler", messageHandler);
                     }
                 });
     }
@@ -59,8 +68,9 @@ public class Client {
             if(ret && future.isSuccess()) {
                 break;
             }
+            log.warn("连接" + host + ":" + port + "失败，等待1秒重试");
             try {
-                Thread.sleep(10);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {}
         }
     }

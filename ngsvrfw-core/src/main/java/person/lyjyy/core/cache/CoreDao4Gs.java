@@ -8,8 +8,6 @@ import person.lyjyy.core.domain.InstanceObj;
  */
 public class CoreDao4Gs {
 
-
-
     public void update(String sql,InstanceObj obj) {
         GsCache.tl.get().update(sql,obj);
     }

@@ -31,7 +31,7 @@ public class Server {
     }
 
     //启动网络服务
-    public void start() {
+    public void init() {
         bootstrap = new ServerBootstrap();
         bootstrap.group(new NioEventLoopGroup(2),new NioEventLoopGroup(4))
                 .option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)

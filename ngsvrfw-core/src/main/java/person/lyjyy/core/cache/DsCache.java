@@ -56,22 +56,15 @@ public class DsCache {
     }
 
 
-    public DsCache(String sqlMapConfig, String dbConfig) throws SQLException, FileNotFoundException {
+    public DsCache(String sqlMapConfig, String dbConfig) throws Exception {
         sqlMapClient = (SqlMapClientImpl) SqlMapClientBuilder.buildSqlMapClient(new FileInputStream(new File(sqlMapConfig)));
+        initDataSource(dbConfig);
         baseCache = new BaseCache<RemoteObj>();
         worker = new DbSynWorker();
         Thread t = new Thread(worker);
         t.setDaemon(true);
         t.setName("dbSynWorker");
         t.start();
-    }
-
-    /**
-     * 初始化sqlmap
-     * @param mainFile
-     */
-    private void initSql(String mainFile) throws FileNotFoundException {
-
     }
 
     /**
@@ -84,7 +77,7 @@ public class DsCache {
         p.load(new FileInputStream(new File(configFile)));
         dataSource.setJdbcUrl(p.getProperty("url"));
         dataSource.setAutoCommitOnClose(true);
-        dataSource.setDriverClass(p.getProperty("class"));
+        dataSource.setDriverClass(p.getProperty("driver"));
         dataSource.setCheckoutTimeout(500);
         dataSource.setInitialPoolSize(Integer.valueOf(p.getProperty("initSize")));
         dataSource.setMinPoolSize(Integer.valueOf(p.getProperty("minSize")));

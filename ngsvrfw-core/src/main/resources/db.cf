@@ -1,0 +1,7 @@
+url=localhost:3306/ngdemo
+driver=com.mysql.jdbc.Driver
+initSize=5
+minSize=5
+maxSize=10
+user=root
+password=root

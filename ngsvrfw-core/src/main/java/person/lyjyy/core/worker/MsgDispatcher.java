@@ -5,11 +5,11 @@ import person.lyjyy.core.protocol.InProtocol;
 /**
  * Created by yujie.li on 14-8-4.
  */
-public class GsMsgDispatcher<T extends InProtocol> extends ThreadModel<T> {
+public class MsgDispatcher<T extends InProtocol> extends ThreadModel<T> {
 
     protected AbstractProtocolWorkThread<T>[] threadList;
 
-    public GsMsgDispatcher(AbstractProtocolWorkThread<T>[] list) {
+    public MsgDispatcher(AbstractProtocolWorkThread<T>[] list) {
         threadList = new AbstractProtocolWorkThread[list.length];
         for(int i = 0; i < threadList.length; i++) {
             threadList[i] = list[i];

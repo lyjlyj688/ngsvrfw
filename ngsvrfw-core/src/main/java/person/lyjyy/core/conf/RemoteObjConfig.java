@@ -5,13 +5,15 @@ import person.lyjyy.core.domain.RemoteObj;
 /**
  * Created by yujie.li on 14-8-6.
  */
-public class RemoteObjConfig {
+public abstract class RemoteObjConfig {
 
     private static RemoteObjConfig config0;
 
-    public static void init(RemoteObjConfig config) {
+    public static void set(RemoteObjConfig config) {
         config0 = config;
     }
+
+    public abstract void init();
 
     protected  RemoteObj arr[] = new RemoteObj[1000];
 

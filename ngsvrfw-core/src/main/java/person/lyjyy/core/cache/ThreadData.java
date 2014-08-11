@@ -2,10 +2,7 @@ package person.lyjyy.core.cache;
 
 import person.lyjyy.core.domain.*;
 import person.lyjyy.core.worker.SendCommandThread;
-import sun.security.jca.GetInstance;
 
-import javax.naming.InitialContext;
-import java.lang.management.OperatingSystemMXBean;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +31,7 @@ public class ThreadData {
         for(Map<String,UpdateObj> map : data.values()) {
             batch = new DefaultDsCommandBatch();
             for(UpdateObj obj : map.values()) {
-                if(obj.sql != null && obj.obj.getStoreType() == InstanceObj.TYPE_NOL) {
+                if(obj.sql != null && obj.obj.getStoreType() == InstanceObj.STORE_TYPE_NOL) {
                     comm = new DefaultDsCommand();
                     comm.setObj((RemoteObj) obj.obj);
                     comm.setSql(obj.sql);
@@ -42,7 +39,7 @@ public class ThreadData {
                     batch.addCommand(comm);
                 }
                 GsCache.cache.updateObj(obj.obj);
-                if(obj.next != null && obj.next.sql != null && obj.next.obj.getStoreType() == InstanceObj.TYPE_NOL) {
+                if(obj.next != null && obj.next.sql != null && obj.next.obj.getStoreType() == InstanceObj.STORE_TYPE_NOL) {
                     comm = new DefaultDsCommand();
                     comm.setObj((RemoteObj) obj.next.obj);
                     comm.setSql(obj.next.sql);
@@ -51,7 +48,7 @@ public class ThreadData {
                 }
                 GsCache.cache.updateObj(obj.next.obj);
             }
-            SendCommandThread.sct.add(batch);
+            GsCache.sct.add(batch);
         }
         data.clear();
     }

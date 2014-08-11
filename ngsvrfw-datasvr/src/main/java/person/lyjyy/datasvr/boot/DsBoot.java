@@ -22,6 +22,7 @@ public class DsBoot implements IBoot{
         Server svr = new Server(Integer.valueOf(p.getProperty("ds.port")));
         ProtocolConfig pc = new DefaultProtocolConfig("protocol");
         svr.getMessageHandler().setProtocolConfig(pc);
+        svr.init();
         svr.bind();
     }
 }
