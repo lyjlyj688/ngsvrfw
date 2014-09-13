@@ -31,6 +31,7 @@ public class GsBoot implements IBoot{
         ServerInfo.init("server.cf");
         Client client = new Client(ServerInfo.dsIp,ServerInfo.dsPort);
         client.getHandler().setProtocolConfig(protocolConfig);
+        client.init();
         client.connect();
         //开始加载数据  具体业务实现
         //启动服务器

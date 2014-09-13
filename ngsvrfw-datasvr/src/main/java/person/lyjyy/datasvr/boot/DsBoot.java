@@ -17,7 +17,8 @@ public class DsBoot implements IBoot{
     @Override
     public void start() throws Throwable {
         Properties p = new Properties();
-        p.load(new FileInputStream(new File("server.cf")));
+        File file = new File("server.cf");
+        p.load(new FileInputStream(file));
         DsCache.cache = new DsCache("sqlmap/sqlconfig.xml","db.cf");
         Server svr = new Server(Integer.valueOf(p.getProperty("ds.port")));
         ProtocolConfig pc = new DefaultProtocolConfig("protocol");

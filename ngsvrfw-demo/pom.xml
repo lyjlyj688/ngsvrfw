@@ -10,4 +10,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>ngsvrfw-demo</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>person.lyjyy</groupId>
+            <artifactId>ngsvrfw-gamesvr</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>person.lyjyy</groupId>
+            <artifactId>ngsvrfw-datasvr</artifactId>
+        </dependency>
+    </dependencies>
 </project>

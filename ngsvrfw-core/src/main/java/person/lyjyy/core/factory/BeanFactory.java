@@ -7,6 +7,7 @@ import net.sf.cglib.proxy.MethodProxy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import person.lyjyy.core.exception.FrameException;
+import person.lyjyy.core.util.PathUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -28,7 +29,8 @@ public class BeanFactory {
 
     public BeanFactory(String dir,Around around) throws Exception{
         this.around = around;
-        File[] list = new File(dir).listFiles();
+        System.out.println(PathUtil.getFilePath(dir));
+        File[] list = new File(PathUtil.getFilePath(dir)).listFiles();
         for(File file : list) {
             Properties p = new Properties();
             p.load(new FileInputStream(file));
@@ -46,6 +48,7 @@ public class BeanFactory {
     private void fixProperty(Object bean) throws IllegalAccessException {
         Field[] fieldList = bean.getClass().getDeclaredFields();
         for(Field f : fieldList) {
+            f.setAccessible(true);
             if(beanMap.containsKey(f.getType().getName())) {
                 f.set(bean,beanMap.get(f.getType().getName()));
             }

@@ -1,0 +1,4 @@
+accountDao=person.lyjyy.ngsvrfw.demo.gs.login.dao.AccountDao
+accountHandler=person.lyjyy.ngsvrfw.demo.gs.login.handler.AccountHandler
+loginHandler=person.lyjyy.ngsvrfw.demo.gs.login.handler.LoginHandler
+accountService=person.lyjyy.ngsvrfw.demo.gs.login.service.AccountService

@@ -12,34 +12,28 @@ import java.lang.reflect.Method;
  */
 public class GsAround implements Around{
 
-    private Enhancer e;
+    final static Callback[] cbs = new Callback[]{new TransInterceptor(),NoOp.INSTANCE};
 
-    public GsAround() {
-        e = new Enhancer();
-        e.setCallbackFilter(new CallbackFilter() {
-            @Override
-            public int accept(Method method) {
-                if(method.getDeclaringClass().getName().indexOf("Service") >= 0 && method.getName().endsWith("withTrans")) {
-                    return 0;
-                }
-                return 1;
+    final static CallbackFilter filter = new CallbackFilter() {
+        @Override
+        public int accept(Method method) {
+            if(method.getDeclaringClass().getName().indexOf("Service") >= 0 && method.getName().endsWith("withTrans")) {
+                return 0;
             }
-        });
-        Callback[] ba = new Callback[]{new TransInterceptor(),new DefaultCallBack()};
-        e.setCallbacks(ba);
-    }
+            return 1;
+        }
+    };
 
     @Override
     public Object around(Class clazz) {
+        Enhancer e = new Enhancer();
+        e.setCallbackFilter(filter);
+        e.setCallbacks(cbs);
         e.setSuperclass(clazz);
         return e.create();
     }
 
-    class DefaultCallBack implements Callback {
-
-    }
-
-    class TransInterceptor implements MethodInterceptor {
+    static class TransInterceptor implements MethodInterceptor {
 
         ThreadLocal<ThreadStatus> status = new ThreadLocal<ThreadStatus>();
 
@@ -86,7 +80,7 @@ public class GsAround implements Around{
         }
     }
 
-    class ThreadStatus {
+    static class ThreadStatus {
         int count;
         boolean fail = false;
 

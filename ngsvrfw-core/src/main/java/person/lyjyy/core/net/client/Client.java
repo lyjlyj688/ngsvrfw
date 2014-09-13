@@ -8,6 +8,7 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +47,8 @@ public class Client {
         bootstrap = new Bootstrap();
         final Client client = this;
         bootstrap.option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
-                .option(ChannelOption.TCP_NODELAY,true)
+                .channel(NioSocketChannel.class)
+                .option(ChannelOption.TCP_NODELAY, true)
                 .option(ChannelOption.SO_KEEPALIVE,false)
                 .group(new NioEventLoopGroup())
                 .handler(new ChannelInitializer<Channel>() {
@@ -62,7 +64,7 @@ public class Client {
     }
 
     public void connect() {
-        ChannelFuture future = bootstrap.connect();
+        ChannelFuture future = bootstrap.connect(host,port);
         while(true) {
             boolean ret = future.awaitUninterruptibly(2000, TimeUnit.MILLISECONDS);
             if(ret && future.isSuccess()) {

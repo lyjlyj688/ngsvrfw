@@ -5,6 +5,8 @@ import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
 import person.lyjyy.core.net.handler.MessageHandler;
 import person.lyjyy.core.net.handler.ServerStateHandler;
@@ -34,12 +36,13 @@ public class Server {
     public void init() {
         bootstrap = new ServerBootstrap();
         bootstrap.group(new NioEventLoopGroup(2),new NioEventLoopGroup(4))
+                .channel(NioServerSocketChannel.class)
                 .option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
                 .option(ChannelOption.SO_KEEPALIVE,false)
                 .option(ChannelOption.TCP_NODELAY,true)
                 .option(ChannelOption.SO_SNDBUF,0x3ffff)
                 .option(ChannelOption.SO_RCVBUF,0xffff)
-                .handler(new ChannelInitializer() {
+                .childHandler(new ChannelInitializer() {
                     @Override
                     protected void initChannel(Channel ch) throws Exception {
                         ch.pipeline().addLast("encoder",new MessageEncode())
@@ -57,5 +60,6 @@ public class Server {
         if(!ret || !future.isSuccess()) {
             throw  future.cause();
         }
+        System.out.print("start on :" + port);
     }
 }

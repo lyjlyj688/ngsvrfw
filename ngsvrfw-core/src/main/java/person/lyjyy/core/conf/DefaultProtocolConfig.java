@@ -1,6 +1,7 @@
 package person.lyjyy.core.conf;
 
 import person.lyjyy.core.protocol.InProtocol;
+import person.lyjyy.core.util.PathUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,7 +16,7 @@ public class DefaultProtocolConfig implements ProtocolConfig{
 
     public DefaultProtocolConfig(String dir) {
         try {
-            File[] list = new File(dir).listFiles();
+            File[] list = new File(PathUtil.getFilePath(dir)).listFiles();
             for(File file : list) {
                 Properties p = new Properties();
                 p.load(new FileInputStream(file));

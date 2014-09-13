@@ -1,5 +1,7 @@
 package person.lyjyy.core.conf;
 
+import person.lyjyy.core.util.PathUtil;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -16,9 +18,9 @@ public class ServerInfo {
 
     public static void init(String file) throws IOException {
         Properties p = new Properties();
-        p.load(new FileInputStream(new File(file)));
-        gsPort = Integer.valueOf(p.getProperty("gsPort"));
-        dsIp = p.getProperty("dsIp");
-        dsPort = Integer.valueOf(p.getProperty("dsPort"));
+        p.load(new FileInputStream(new File(PathUtil.getFilePath(file))));
+        gsPort = Integer.valueOf(p.getProperty("gs.port"));
+        dsIp = p.getProperty("ds.ip");
+        dsPort = Integer.valueOf(p.getProperty("ds.port"));
     }
 }
